@@ -1,0 +1,12 @@
+{
+    "name": "node-red-fullstack-dev-logs",
+    "description": "all the progress made on youtube channel will be available here",
+    "version": "0.0.1",
+    "dependencies": {},
+    "node-red": {
+        "settings": {
+            "flowFile": "flows.json",
+            "credentialsFile": "flows_cred.json"
+        }
+    }
+}

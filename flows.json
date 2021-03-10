@@ -1,1 +1,1379 @@
-[{"id":"4e9830f3.6b8c9","type":"tab","label":"Kafka Example","disabled":false,"info":""},{"id":"e9f20397.e6a1d","type":"tab","label":"HTTP Triggered Flow","disabled":false,"info":""},{"id":"c364b6f6.ae1b18","type":"Kafka Broker","z":"","name":"local kafka","hosts":[{"host":"127.0.0.1","port":9092}],"hostsEnvVar":"","connectTimeout":"10000","requestTimeout":"30000","autoConnect":"true","idleConnection":"5","reconnectOnIdle":"true","maxAsyncRequests":"10","checkInterval":"10","selfSign":true,"usetls":false,"useCredentials":false},{"id":"a678263d.0311c8","type":"ui_base","theme":{"name":"theme-light","lightTheme":{"default":"#0094CE","baseColor":"#0094CE","baseFont":"-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif","edited":true,"reset":false},"darkTheme":{"default":"#097479","baseColor":"#097479","baseFont":"-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif","edited":false},"customTheme":{"name":"Untitled Theme 1","default":"#4B7930","baseColor":"#4B7930","baseFont":"-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"},"themeState":{"base-color":{"default":"#0094CE","value":"#0094CE","edited":false},"page-titlebar-backgroundColor":{"value":"#0094CE","edited":false},"page-backgroundColor":{"value":"#fafafa","edited":false},"page-sidebar-backgroundColor":{"value":"#ffffff","edited":false},"group-textColor":{"value":"#1bbfff","edited":false},"group-borderColor":{"value":"#ffffff","edited":false},"group-backgroundColor":{"value":"#ffffff","edited":false},"widget-textColor":{"value":"#111111","edited":false},"widget-backgroundColor":{"value":"#0094ce","edited":false},"widget-borderColor":{"value":"#ffffff","edited":false},"base-font":{"value":"-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"}},"angularTheme":{"primary":"indigo","accents":"blue","warn":"red","background":"grey"}},"site":{"name":"Node-RED Dashboard","hideToolbar":"false","allowSwipe":"false","lockMenu":"false","allowTempTheme":"true","dateFormat":"DD/MM/YYYY","sizes":{"sx":48,"sy":48,"gx":6,"gy":6,"cx":6,"cy":6,"px":0,"py":0}}},{"id":"de70901.29ac87","type":"Kafka Producer","z":"4e9830f3.6b8c9","name":"","broker":"c364b6f6.ae1b18","topic":"youtube","requireAcks":1,"ackTimeoutMs":100,"partitionerType":0,"key":"","partition":0,"attributes":0,"connectionType":"Producer","x":500,"y":100,"wires":[]},{"id":"8d39e287.e73a8","type":"inject","z":"4e9830f3.6b8c9","name":"","props":[{"p":"payload"},{"p":"topic","vt":"str"}],"repeat":"","crontab":"","once":false,"onceDelay":0.1,"topic":"","payload":"again pllease","payloadType":"str","x":220,"y":120,"wires":[["de70901.29ac87"]]},{"id":"dafbd6b4.6fff18","type":"debug","z":"4e9830f3.6b8c9","name":"","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"false","statusVal":"","statusType":"auto","x":520,"y":320,"wires":[]},{"id":"f96a9b5d.579ed8","type":"Kafka Consumer","z":"4e9830f3.6b8c9","name":"","broker":"c364b6f6.ae1b18","topics":[{"topic":"youtube","offset":0,"partition":0}],"groupId":"kafka-node-group","autoCommit":"true","autoCommitIntervalMs":5000,"fetchMaxWaitMs":100,"fetchMinBytes":1,"fetchMaxBytes":1048576,"fromOffset":0,"encoding":"utf8","keyEncoding":"utf8","connectionType":"Consumer","x":270,"y":360,"wires":[["dafbd6b4.6fff18"]]},{"id":"c4ebc2dd.890c9","type":"http in","z":"e9f20397.e6a1d","name":"","url":"/fullstack","method":"get","upload":false,"swaggerDoc":"","x":310,"y":220,"wires":[["f2d7e7bf.a988a8"]]},{"id":"f2d7e7bf.a988a8","type":"template","z":"e9f20397.e6a1d","name":"page","field":"payload","fieldType":"msg","format":"handlebars","syntax":"mustache","template":"<html>\n    <head></head>\n    <body>\n        <h1>We have trriggered the HTTP Triggered Flow using an HTTP endpoint</h1>\n    </body>\n</html>","x":450,"y":220,"wires":[["50369ecc.c50a7"]]},{"id":"50369ecc.c50a7","type":"http response","z":"e9f20397.e6a1d","name":"","x":590,"y":220,"wires":[]}]
+[
+    {
+        "id": "4e9830f3.6b8c9",
+        "type": "tab",
+        "label": "Kafka Example",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "e9f20397.e6a1d",
+        "type": "tab",
+        "label": "HTTP Triggered Flow",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "c2d60773.894698",
+        "type": "tab",
+        "label": "Redis-example",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "c364b6f6.ae1b18",
+        "type": "Kafka Broker",
+        "d": true,
+        "name": "local kafka",
+        "hosts": [
+            {
+                "host": "127.0.0.1",
+                "port": 9092
+            }
+        ],
+        "hostsEnvVar": "",
+        "connectTimeout": "10000",
+        "requestTimeout": "30000",
+        "autoConnect": "true",
+        "idleConnection": "5",
+        "reconnectOnIdle": "true",
+        "maxAsyncRequests": "10",
+        "checkInterval": "10",
+        "selfSign": true,
+        "usetls": false,
+        "useCredentials": false
+    },
+    {
+        "id": "a678263d.0311c8",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-light",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#0094CE",
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#fafafa",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#1bbfff",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#0094ce",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey"
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "a0efbb89.5e42d8",
+        "type": "redis-config",
+        "name": "local",
+        "options": "{}",
+        "cluster": false,
+        "optionsType": "json"
+    },
+    {
+        "id": "de70901.29ac87",
+        "type": "Kafka Producer",
+        "z": "4e9830f3.6b8c9",
+        "d": true,
+        "name": "",
+        "broker": "c364b6f6.ae1b18",
+        "topic": "youtube",
+        "requireAcks": 1,
+        "ackTimeoutMs": 100,
+        "partitionerType": 0,
+        "key": "",
+        "partition": 0,
+        "attributes": 0,
+        "connectionType": "Producer",
+        "x": 500,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "8d39e287.e73a8",
+        "type": "inject",
+        "z": "4e9830f3.6b8c9",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "again pllease",
+        "payloadType": "str",
+        "x": 220,
+        "y": 120,
+        "wires": [
+            [
+                "de70901.29ac87"
+            ]
+        ]
+    },
+    {
+        "id": "dafbd6b4.6fff18",
+        "type": "debug",
+        "z": "4e9830f3.6b8c9",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 520,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "f96a9b5d.579ed8",
+        "type": "Kafka Consumer",
+        "z": "4e9830f3.6b8c9",
+        "d": true,
+        "name": "",
+        "broker": "c364b6f6.ae1b18",
+        "topics": [
+            {
+                "topic": "youtube",
+                "offset": 0,
+                "partition": 0
+            }
+        ],
+        "groupId": "kafka-node-group",
+        "autoCommit": "true",
+        "autoCommitIntervalMs": 5000,
+        "fetchMaxWaitMs": 100,
+        "fetchMinBytes": 1,
+        "fetchMaxBytes": 1048576,
+        "fromOffset": 0,
+        "encoding": "utf8",
+        "keyEncoding": "utf8",
+        "connectionType": "Consumer",
+        "x": 270,
+        "y": 360,
+        "wires": [
+            [
+                "dafbd6b4.6fff18"
+            ]
+        ]
+    },
+    {
+        "id": "c4ebc2dd.890c9",
+        "type": "http in",
+        "z": "e9f20397.e6a1d",
+        "name": "",
+        "url": "/fullstack",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 310,
+        "y": 220,
+        "wires": [
+            [
+                "f2d7e7bf.a988a8"
+            ]
+        ]
+    },
+    {
+        "id": "f2d7e7bf.a988a8",
+        "type": "template",
+        "z": "e9f20397.e6a1d",
+        "name": "page",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<html>\n    <head></head>\n    <body>\n        <h1>We have trriggered the HTTP Triggered Flow using an HTTP endpoint</h1>\n    </body>\n</html>",
+        "x": 450,
+        "y": 220,
+        "wires": [
+            [
+                "50369ecc.c50a7"
+            ]
+        ]
+    },
+    {
+        "id": "50369ecc.c50a7",
+        "type": "http response",
+        "z": "e9f20397.e6a1d",
+        "name": "",
+        "x": 590,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "31f1fcb.a6a4a04",
+        "type": "debug",
+        "z": "e9f20397.e6a1d",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 870,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "80d063ee.78deb8",
+        "type": "inject",
+        "z": "e9f20397.e6a1d",
+        "name": "",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 340,
+        "y": 500,
+        "wires": [
+            [
+                "4cb7b20e.778d34"
+            ]
+        ]
+    },
+    {
+        "id": "4cb7b20e.778d34",
+        "type": "redis-out",
+        "z": "e9f20397.e6a1d",
+        "server": "a0efbb89.5e42d8",
+        "command": "rpush",
+        "name": "",
+        "topic": "test",
+        "x": 630,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "902b8385.2fdd9",
+        "type": "redis-in",
+        "z": "e9f20397.e6a1d",
+        "server": "a0efbb89.5e42d8",
+        "command": "blpop",
+        "name": "",
+        "topic": "test",
+        "timeout": 0,
+        "x": 630,
+        "y": 500,
+        "wires": [
+            [
+                "31f1fcb.a6a4a04"
+            ]
+        ]
+    },
+    {
+        "id": "6373a8a4.82bad",
+        "type": "inject",
+        "z": "e9f20397.e6a1d",
+        "name": "",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"a\":1,\"b\":2}",
+        "payloadType": "json",
+        "x": 350,
+        "y": 460,
+        "wires": [
+            [
+                "4cb7b20e.778d34"
+            ]
+        ]
+    },
+    {
+        "id": "f248c9ea.674658",
+        "type": "redis-command",
+        "z": "e9f20397.e6a1d",
+        "server": "a0efbb89.5e42d8",
+        "command": "getset",
+        "name": "",
+        "topic": "timestamp",
+        "params": "[]",
+        "paramsType": "json",
+        "payloadType": "json",
+        "block": false,
+        "x": 610,
+        "y": 560,
+        "wires": [
+            [
+                "3351713f.42e916"
+            ]
+        ]
+    },
+    {
+        "id": "424ef610.bbb3a8",
+        "type": "inject",
+        "z": "e9f20397.e6a1d",
+        "name": "",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 340,
+        "y": 560,
+        "wires": [
+            [
+                "f248c9ea.674658"
+            ]
+        ]
+    },
+    {
+        "id": "3351713f.42e916",
+        "type": "debug",
+        "z": "e9f20397.e6a1d",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 850,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "ba433622.8c6178",
+        "type": "catch",
+        "z": "e9f20397.e6a1d",
+        "name": "",
+        "scope": null,
+        "uncaught": false,
+        "x": 640,
+        "y": 400,
+        "wires": [
+            [
+                "ec2978af.3e0458"
+            ]
+        ]
+    },
+    {
+        "id": "ec2978af.3e0458",
+        "type": "debug",
+        "z": "e9f20397.e6a1d",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 870,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "eccd31de.55e3a",
+        "type": "redis-command",
+        "z": "e9f20397.e6a1d",
+        "server": "a0efbb89.5e42d8",
+        "command": "set",
+        "name": "",
+        "topic": "",
+        "params": "[]",
+        "paramsType": "json",
+        "payloadType": "json",
+        "block": false,
+        "x": 560,
+        "y": 620,
+        "wires": [
+            [
+                "6ac31b1f.b393c4"
+            ]
+        ]
+    },
+    {
+        "id": "46f5d0c0.8a7198",
+        "type": "inject",
+        "z": "e9f20397.e6a1d",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "[\"Dev\",\"Gaurav\"]",
+        "payloadType": "json",
+        "x": 360,
+        "y": 620,
+        "wires": [
+            [
+                "eccd31de.55e3a"
+            ]
+        ]
+    },
+    {
+        "id": "6ac31b1f.b393c4",
+        "type": "debug",
+        "z": "e9f20397.e6a1d",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 850,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "9f960d71.749988",
+        "type": "redis-command",
+        "z": "e9f20397.e6a1d",
+        "server": "a0efbb89.5e42d8",
+        "command": "getset",
+        "name": "",
+        "topic": "",
+        "params": "[]",
+        "paramsType": "json",
+        "payloadType": "json",
+        "block": false,
+        "x": 570,
+        "y": 680,
+        "wires": [
+            [
+                "7cef7ea5.dba3b"
+            ]
+        ]
+    },
+    {
+        "id": "f16ad786.8b294",
+        "type": "inject",
+        "z": "e9f20397.e6a1d",
+        "name": "",
+        "props": [
+            {
+                "p": "payload",
+                "v": "[\"value\"]",
+                "vt": "json"
+            },
+            {
+                "p": "topic",
+                "v": "key",
+                "vt": "string"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "key",
+        "payload": "[\"value\"]",
+        "payloadType": "json",
+        "x": 350,
+        "y": 680,
+        "wires": [
+            [
+                "9f960d71.749988"
+            ]
+        ]
+    },
+    {
+        "id": "7cef7ea5.dba3b",
+        "type": "debug",
+        "z": "e9f20397.e6a1d",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 850,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "7e45a50c.240f7c",
+        "type": "redis-command",
+        "z": "e9f20397.e6a1d",
+        "server": "a0efbb89.5e42d8",
+        "command": "hmset",
+        "name": "",
+        "topic": "",
+        "params": "[]",
+        "paramsType": "json",
+        "payloadType": "json",
+        "block": false,
+        "x": 570,
+        "y": 800,
+        "wires": [
+            [
+                "122ff416.a56b8c"
+            ]
+        ]
+    },
+    {
+        "id": "488a7f5b.a40628",
+        "type": "inject",
+        "z": "e9f20397.e6a1d",
+        "name": "",
+        "props": [
+            {
+                "p": "payload",
+                "v": "{\"a\":1,\"b\":2}",
+                "vt": "json"
+            },
+            {
+                "p": "topic",
+                "v": "myHash",
+                "vt": "string"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "myHash",
+        "payload": "{\"a\":1,\"b\":2}",
+        "payloadType": "json",
+        "x": 370,
+        "y": 800,
+        "wires": [
+            [
+                "7e45a50c.240f7c"
+            ]
+        ]
+    },
+    {
+        "id": "122ff416.a56b8c",
+        "type": "debug",
+        "z": "e9f20397.e6a1d",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 850,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "aff97bc7.84a578",
+        "type": "inject",
+        "z": "e9f20397.e6a1d",
+        "name": "",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "false",
+        "payloadType": "bool",
+        "x": 330,
+        "y": 860,
+        "wires": [
+            [
+                "1676f695.aa7189"
+            ]
+        ]
+    },
+    {
+        "id": "2f4295b5.f78d42",
+        "type": "debug",
+        "z": "e9f20397.e6a1d",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 850,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "1676f695.aa7189",
+        "type": "redis-command",
+        "z": "e9f20397.e6a1d",
+        "server": "a0efbb89.5e42d8",
+        "command": "hgetall",
+        "name": "",
+        "topic": "myHash",
+        "params": "{}",
+        "paramsType": "json",
+        "payloadType": "json",
+        "block": false,
+        "x": 600,
+        "y": 860,
+        "wires": [
+            [
+                "2f4295b5.f78d42"
+            ]
+        ]
+    },
+    {
+        "id": "66098945.141118",
+        "type": "inject",
+        "z": "e9f20397.e6a1d",
+        "name": "",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "false",
+        "payloadType": "bool",
+        "x": 330,
+        "y": 920,
+        "wires": [
+            [
+                "e42d2b3b.6bb"
+            ]
+        ]
+    },
+    {
+        "id": "e23fbe8.d7505c",
+        "type": "debug",
+        "z": "e9f20397.e6a1d",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 850,
+        "y": 920,
+        "wires": []
+    },
+    {
+        "id": "e42d2b3b.6bb",
+        "type": "redis-command",
+        "z": "e9f20397.e6a1d",
+        "server": "a0efbb89.5e42d8",
+        "command": "sadd",
+        "name": "",
+        "topic": "mySet",
+        "params": "[\"memberA\",\"memberB\",\"memberC\"]",
+        "paramsType": "json",
+        "payloadType": "json",
+        "block": false,
+        "x": 590,
+        "y": 920,
+        "wires": [
+            [
+                "e23fbe8.d7505c"
+            ]
+        ]
+    },
+    {
+        "id": "2163c482.b8a244",
+        "type": "redis-command",
+        "z": "e9f20397.e6a1d",
+        "server": "a0efbb89.5e42d8",
+        "command": "get",
+        "name": "",
+        "topic": "",
+        "params": "[]",
+        "paramsType": "json",
+        "payloadType": "json",
+        "block": false,
+        "x": 560,
+        "y": 740,
+        "wires": [
+            [
+                "d2ea99d4.a4c51"
+            ]
+        ]
+    },
+    {
+        "id": "b5f040ea.800be8",
+        "type": "inject",
+        "z": "e9f20397.e6a1d",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "Dev",
+        "payload": "[]",
+        "payloadType": "json",
+        "x": 330,
+        "y": 740,
+        "wires": [
+            [
+                "2163c482.b8a244"
+            ]
+        ]
+    },
+    {
+        "id": "d2ea99d4.a4c51",
+        "type": "debug",
+        "z": "e9f20397.e6a1d",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 870,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "15f62858.26419",
+        "type": "redis-lua-script",
+        "z": "e9f20397.e6a1d",
+        "server": "a0efbb89.5e42d8",
+        "name": "test",
+        "keyval": 0,
+        "func": "local text = \"Hello World\"\nreturn text",
+        "stored": true,
+        "block": false,
+        "x": 550,
+        "y": 1040,
+        "wires": [
+            [
+                "4a40fc2d.b70e2c"
+            ]
+        ]
+    },
+    {
+        "id": "4f1fc69d.539ee",
+        "type": "inject",
+        "z": "e9f20397.e6a1d",
+        "name": "",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 340,
+        "y": 1040,
+        "wires": [
+            [
+                "15f62858.26419"
+            ]
+        ]
+    },
+    {
+        "id": "4a40fc2d.b70e2c",
+        "type": "debug",
+        "z": "e9f20397.e6a1d",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 870,
+        "y": 1040,
+        "wires": []
+    },
+    {
+        "id": "6ebb1fdf.2fce",
+        "type": "inject",
+        "z": "e9f20397.e6a1d",
+        "name": "",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "false",
+        "payloadType": "bool",
+        "x": 330,
+        "y": 980,
+        "wires": [
+            [
+                "5a3d77f4.920fd8"
+            ]
+        ]
+    },
+    {
+        "id": "bac6944e.4e07",
+        "type": "debug",
+        "z": "e9f20397.e6a1d",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 850,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "5a3d77f4.920fd8",
+        "type": "redis-command",
+        "z": "e9f20397.e6a1d",
+        "server": "a0efbb89.5e42d8",
+        "command": "sismember",
+        "name": "",
+        "topic": "mySet",
+        "params": "[\"memberA\"]",
+        "paramsType": "json",
+        "payloadType": "json",
+        "block": false,
+        "x": 610,
+        "y": 980,
+        "wires": [
+            [
+                "bac6944e.4e07"
+            ]
+        ]
+    },
+    {
+        "id": "c1c3a5a6.c289f",
+        "type": "redis-lua-script",
+        "z": "e9f20397.e6a1d",
+        "server": "a0efbb89.5e42d8",
+        "name": "test2",
+        "keyval": 0,
+        "func": "local text = \"Hello2222 World2222\"\nreturn text",
+        "stored": false,
+        "block": false,
+        "x": 550,
+        "y": 1100,
+        "wires": [
+            [
+                "d8bd4107.683c08"
+            ]
+        ]
+    },
+    {
+        "id": "9013d649.88c35",
+        "type": "inject",
+        "z": "e9f20397.e6a1d",
+        "name": "",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 340,
+        "y": 1100,
+        "wires": [
+            [
+                "c1c3a5a6.c289f"
+            ]
+        ]
+    },
+    {
+        "id": "d8bd4107.683c08",
+        "type": "debug",
+        "z": "e9f20397.e6a1d",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 870,
+        "y": 1100,
+        "wires": []
+    },
+    {
+        "id": "cb44db96.c64bb8",
+        "type": "redis-in",
+        "z": "e9f20397.e6a1d",
+        "server": "a0efbb89.5e42d8",
+        "command": "psubscribe",
+        "name": "",
+        "topic": "TOPIC:*",
+        "timeout": 0,
+        "x": 640,
+        "y": 280,
+        "wires": [
+            [
+                "78033f6c.31797"
+            ]
+        ]
+    },
+    {
+        "id": "78033f6c.31797",
+        "type": "debug",
+        "z": "e9f20397.e6a1d",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 870,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "dac5fcff.4c4cb",
+        "type": "redis-in",
+        "z": "e9f20397.e6a1d",
+        "server": "a0efbb89.5e42d8",
+        "command": "subscribe",
+        "name": "",
+        "topic": "TOPIC:OK",
+        "timeout": 0,
+        "x": 640,
+        "y": 340,
+        "wires": [
+            [
+                "6f01eb54.501e7c"
+            ]
+        ]
+    },
+    {
+        "id": "6f01eb54.501e7c",
+        "type": "debug",
+        "z": "e9f20397.e6a1d",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 870,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "e0d2924b.210708",
+        "type": "redis-out",
+        "z": "e9f20397.e6a1d",
+        "server": "a0efbb89.5e42d8",
+        "command": "publish",
+        "name": "",
+        "topic": "TOPIC:OK",
+        "x": 370,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "d1fc59dc.bd4958",
+        "type": "inject",
+        "z": "e9f20397.e6a1d",
+        "name": "",
+        "props": [
+            {
+                "p": "payload",
+                "v": "{\"a\":1,\"b\":2}",
+                "vt": "json"
+            },
+            {
+                "p": "topic",
+                "v": "",
+                "vt": "string"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"a\":1,\"b\":2}",
+        "payloadType": "json",
+        "x": 350,
+        "y": 300,
+        "wires": [
+            [
+                "e0d2924b.210708"
+            ]
+        ]
+    },
+    {
+        "id": "3e05b777.781bd8",
+        "type": "redis-command",
+        "z": "e9f20397.e6a1d",
+        "server": "a0efbb89.5e42d8",
+        "command": "del",
+        "name": "",
+        "topic": "",
+        "params": "[]",
+        "paramsType": "json",
+        "payloadType": "json",
+        "block": false,
+        "x": 560,
+        "y": 1160,
+        "wires": [
+            [
+                "fd036d2b.dc6d38"
+            ]
+        ]
+    },
+    {
+        "id": "6924006.91553",
+        "type": "inject",
+        "z": "e9f20397.e6a1d",
+        "name": "",
+        "props": [
+            {
+                "p": "payload",
+                "v": "[]",
+                "vt": "json"
+            },
+            {
+                "p": "topic",
+                "v": "key",
+                "vt": "string"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "key",
+        "payload": "[]",
+        "payloadType": "json",
+        "x": 330,
+        "y": 1160,
+        "wires": [
+            [
+                "3e05b777.781bd8"
+            ]
+        ]
+    },
+    {
+        "id": "fd036d2b.dc6d38",
+        "type": "debug",
+        "z": "e9f20397.e6a1d",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 870,
+        "y": 1160,
+        "wires": []
+    },
+    {
+        "id": "a13d2797.8a7ff",
+        "type": "redis-instance",
+        "z": "e9f20397.e6a1d",
+        "server": "a0efbb89.5e42d8",
+        "name": "",
+        "topic": "redis",
+        "location": "flow",
+        "x": 310,
+        "y": 1220,
+        "wires": []
+    },
+    {
+        "id": "2a93e7ce.341078",
+        "type": "inject",
+        "z": "e9f20397.e6a1d",
+        "name": "",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 320,
+        "y": 1260,
+        "wires": [
+            [
+                "d89709ef.fd9368"
+            ]
+        ]
+    },
+    {
+        "id": "d89709ef.fd9368",
+        "type": "function",
+        "z": "e9f20397.e6a1d",
+        "name": "",
+        "func": "let redis = context.flow.get('redis');\n\nredis.info().then((data)=>{\n    msg.payload = data\n    node.send(msg);\n})\n\n/*\nredis.call(\"anycmd\").then((data)=>{\n    msg.payload = data\n    node.send(msg);\n})*/",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 550,
+        "y": 1260,
+        "wires": [
+            [
+                "f2e9c3a0.8f181"
+            ]
+        ]
+    },
+    {
+        "id": "f2e9c3a0.8f181",
+        "type": "debug",
+        "z": "e9f20397.e6a1d",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 870,
+        "y": 1260,
+        "wires": []
+    },
+    {
+        "id": "6450bb62.edf0e4",
+        "type": "redis-command",
+        "z": "c2d60773.894698",
+        "server": "a0efbb89.5e42d8",
+        "command": "set",
+        "name": "",
+        "topic": "",
+        "params": "[]",
+        "paramsType": "json",
+        "payloadType": "json",
+        "block": false,
+        "x": 520,
+        "y": 160,
+        "wires": [
+            [
+                "5a322f14.22c15"
+            ]
+        ]
+    },
+    {
+        "id": "b7dc8458.ab1f38",
+        "type": "inject",
+        "z": "c2d60773.894698",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "[\"Manager\",\"Florin\"]",
+        "payloadType": "json",
+        "x": 330,
+        "y": 160,
+        "wires": [
+            [
+                "6450bb62.edf0e4"
+            ]
+        ]
+    },
+    {
+        "id": "5a322f14.22c15",
+        "type": "debug",
+        "z": "c2d60773.894698",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 810,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "de601575.7947e8",
+        "type": "redis-command",
+        "z": "c2d60773.894698",
+        "server": "a0efbb89.5e42d8",
+        "command": "get",
+        "name": "",
+        "topic": "",
+        "params": "[]",
+        "paramsType": "json",
+        "payloadType": "json",
+        "block": false,
+        "x": 520,
+        "y": 280,
+        "wires": [
+            [
+                "4da63edd.a7611"
+            ]
+        ]
+    },
+    {
+        "id": "fdbcb9d0.c57eb8",
+        "type": "inject",
+        "z": "c2d60773.894698",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "Manager",
+        "payload": "[]",
+        "payloadType": "json",
+        "x": 300,
+        "y": 280,
+        "wires": [
+            [
+                "de601575.7947e8"
+            ]
+        ]
+    },
+    {
+        "id": "4da63edd.a7611",
+        "type": "debug",
+        "z": "c2d60773.894698",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 830,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "22a8f5a9.8d2dda",
+        "type": "inject",
+        "z": "c2d60773.894698",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "Dev",
+        "payload": "[]",
+        "payloadType": "json",
+        "x": 280,
+        "y": 360,
+        "wires": [
+            [
+                "de601575.7947e8"
+            ]
+        ]
+    }
+]

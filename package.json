@@ -1,6 +1,11 @@
 {
+<<<<<<< HEAD
     "name": "node-red-flows",
     "description": "A Node-RED Project",
+=======
+    "name": "node-red-fullstack-dev-logs",
+    "description": "all the progress made on youtube channel will be available here",
+>>>>>>> 1007d950cc9a564457a12a3d226fd66e37cff03d
     "version": "0.0.1",
     "dependencies": {},
     "node-red": {

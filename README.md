@@ -1,7 +1,6 @@
 node-red-flows
 ==============
 
-### About
+### Sample flows
 
-This is your project's README.md file. It helps users understand what your
-project does, how to use it and anything else they may need to know.
+- [Using Google cloud vision api](docs/cloud-vision-api/cloud-vision-api-example.md)

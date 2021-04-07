@@ -1,7 +1,7 @@
 # Image understanding using Google cloud vision api with Node-RED flow
 **courtesy for this flow goes to - https://flows.nodered.org/flow/4079e89b8afbcb8f70cea5d75e5120f8**
 
-- To understand what this flow does, watch the video - [video link to be uploaded]
+- To understand what this flow does, watch the video - https://youtu.be/eaUBSNRKv1A
 
 ## Visual representaion of the flow
 

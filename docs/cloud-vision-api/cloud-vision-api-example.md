@@ -3,7 +3,7 @@
 
 - To understand what this flow does, watch the video - https://youtu.be/eaUBSNRKv1A
 
-## Visual representaion of the flow
+## Visual representation of the flow
 
 ![Google Cloud Vision api example](vision-api-flow.png)
 
